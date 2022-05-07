@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,16 +13,23 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "@mui/material/Link";
-import { connect } from "react-redux";
 
 import { fetchUser } from "../actions";
 
 const pages = ["Lists"];
 const settings = ["Profile", "Logout"];
 
-const ResponsiveAppBar = (props) => {
+const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const user = useSelector(({ auth }) => auth);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -38,12 +46,8 @@ const ResponsiveAppBar = (props) => {
     setAnchorElUser(null);
   };
 
-  useEffect(() => {
-    props.fetchUser();
-  }, []);
-
   const renderAuth = () => {
-    switch (props.user) {
+    switch (user) {
       case null:
         return null;
       case "Signed Out":
@@ -170,8 +174,4 @@ const ResponsiveAppBar = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { user: state.auth };
-};
-
-export default connect(mapStateToProps, { fetchUser })(ResponsiveAppBar);
+export default ResponsiveAppBar;
