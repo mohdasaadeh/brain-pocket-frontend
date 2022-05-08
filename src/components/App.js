@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 
-import Header from "./Header";
+import NavBar from "./NavBar";
 import Home from "./Home";
 
 const App = () => {
@@ -11,7 +11,7 @@ const App = () => {
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="xl">
-        <Header />
+        <NavBar />
         <Routes>
           <Route path="/" element={<Home />}></Route>
         </Routes>
