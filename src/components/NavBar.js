@@ -6,7 +6,8 @@ import Button from "@mui/material/Button";
 import { fetchUser } from "../actions";
 import StyledNavBar from "./NavBar.styles";
 
-const pages = ["Lists"];
+let pages = [];
+let pagePaths = [];
 
 const ResponsiveAppBar = () => {
   const user = useSelector(({ auth }) => auth);
@@ -19,7 +20,7 @@ const ResponsiveAppBar = () => {
 
   const renderAuth = () => {
     switch (user) {
-      case null:
+      case "out":
         return (
           <Box sx={{ flexGrow: 0 }}>
             <Button href="/api/user/login/google" color="inherit">
@@ -39,8 +40,20 @@ const ResponsiveAppBar = () => {
     }
   };
 
+  (function renderPages() {
+    if (user === "out") return;
+
+    pages = ["Lists"];
+    pagePaths = ["/lists"];
+  })();
+
   return (
-    <StyledNavBar logo="BRAIN-POCKET" pages={pages} renderAuth={renderAuth} />
+    <StyledNavBar
+      logo="BRAIN-POCKET"
+      pages={pages}
+      pagePaths={pagePaths}
+      renderAuth={renderAuth}
+    />
   );
 };
 

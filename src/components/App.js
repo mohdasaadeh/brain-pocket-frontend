@@ -5,6 +5,7 @@ import Container from "@mui/material/Container";
 
 import NavBar from "./NavBar";
 import Home from "./Home";
+import Lists from "./Lists";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />}></Route>
+          <Route path="/lists" element={<Lists />}></Route>
         </Routes>
       </Container>
     </React.Fragment>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,7 +11,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 
-const StyledNavBar = ({ logo, pages, renderAuth }) => {
+const StyledNavBar = ({ logo, pages, pagePaths, renderAuth }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -63,9 +64,14 @@ const StyledNavBar = ({ logo, pages, renderAuth }) => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
+              {pages.map((page, index) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Link
+                    to={pagePaths[index]}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Typography textAlign="center">{page}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -79,14 +85,19 @@ const StyledNavBar = ({ logo, pages, renderAuth }) => {
             {logo}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
+            {pages.map((page, index) => (
+              <Link
                 key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                to={pagePaths[index]}
+                style={{ textDecoration: "none" }}
               >
-                {page}
-              </Button>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page}
+                </Button>
+              </Link>
             ))}
           </Box>
           {renderAuth()}
