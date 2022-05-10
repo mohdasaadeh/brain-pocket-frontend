@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { green } from "@mui/material/colors";
 import { loadCSS } from "fg-loadcss";
 import Icon from "@mui/material/Icon";
@@ -20,13 +21,15 @@ const BasicCard = () => {
   return (
     <Grid item xs={3}>
       <Typography sx={{ minHeight: 250 }}>
-        <Button sx={{ color: green[500], minHeight: 250 }} fullWidth>
-          <Icon
-            baseClassName="fas"
-            className="fa-plus-circle"
-            sx={{ fontSize: 100 }}
-          />
-        </Button>
+        <Link to={"/lists/new"} style={{ textDecoration: "none" }}>
+          <Button sx={{ color: green[500], minHeight: 250 }} fullWidth>
+            <Icon
+              baseClassName="fas"
+              className="fa-plus-circle"
+              sx={{ fontSize: 100 }}
+            />
+          </Button>
+        </Link>
       </Typography>
     </Grid>
   );

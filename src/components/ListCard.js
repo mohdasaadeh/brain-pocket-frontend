@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -6,7 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 
-const BasicCard = ({ title, wordsCount }) => {
+const BasicCard = ({ id, title, wordsCount }) => {
   return (
     <Grid item xs={3}>
       <Card sx={{ minHeight: 250 }}>
@@ -59,8 +60,9 @@ const BasicCard = ({ title, wordsCount }) => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography align="center">
-                <Button size="small">Show</Button>
-                <Button size="small">Delete</Button>
+                <Link to={`/lists/${id}`} style={{ textDecoration: "none" }}>
+                  <Button size="small">Show</Button>
+                </Link>
               </Typography>
             </Grid>
           </Grid>

@@ -18,18 +18,23 @@ const Lists = () => {
   const renderLists = () => {
     if (!lists) return null;
 
-    return lists.map((list) => {
+    return Object.values(lists).map((list) => {
       const { title } = list.listId;
-      const { wordsCount } = list;
+      const { _id, wordsCount } = list;
 
       return (
-        <ListCard key={list.listId._id} title={title} wordsCount={wordsCount} />
+        <ListCard
+          key={list.listId._id}
+          id={_id}
+          title={title}
+          wordsCount={wordsCount}
+        />
       );
     });
   };
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} style={{ marginTop: 1 }}>
       <NewListCard />
       {renderLists()}
     </Grid>
