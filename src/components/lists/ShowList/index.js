@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { useList } from "../../../hooks/useList";
-import StyledShowList from "./WordsTable.styles";
+import StyledWordsTable from "./WordsTable.styles";
 
 const ShowList = () => {
   const { id } = useParams();
@@ -27,7 +27,7 @@ const ShowList = () => {
 
     return (
       <div>
-        <StyledShowList list={list} />
+        <StyledWordsTable list={list} />
       </div>
     );
   };
