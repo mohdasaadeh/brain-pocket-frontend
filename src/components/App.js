@@ -1,18 +1,15 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { createBrowserHistory } from "history";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 
 import NavBar from "./NavBar";
 import Home from "./Home";
-import Lists from "./Lists";
-import ShowList from "./ShowList";
-import CreateList from "./CreateList";
-import EditList from "./EditList";
-import DeleteList from "./DeleteList";
-
-let history = createBrowserHistory();
+import ListsMenu from "./lists/ListsMenu";
+import ShowList from "./lists/ShowList";
+import CreateList from "./lists/CreateList";
+import EditList from "./lists/EditList";
+import DeleteList from "./lists/DeleteList";
 
 const App = () => {
   return (
@@ -21,12 +18,12 @@ const App = () => {
       <Container maxWidth="xl">
         <NavBar />
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/lists" element={<Lists />}></Route>
-          <Route path="/lists/new" element={<CreateList />}></Route>
-          <Route path="/lists/:id" element={<ShowList />}></Route>
-          <Route path="/lists/:id/edit" element={<EditList />}></Route>
-          <Route path="/lists/:id/delete" element={<DeleteList />}></Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/lists" element={<ListsMenu />} />
+          <Route path="/lists/new" element={<CreateList />} />
+          <Route path="/lists/:id" element={<ShowList />} />
+          <Route path="/lists/:id/edit" element={<EditList />} />
+          <Route path="/lists/:id/delete" element={<DeleteList />} />
         </Routes>
       </Container>
     </React.Fragment>

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { fetchList } from "../actions";
-import StyledShowList from "./ShowList.styles";
+import { useList } from "../../../hooks/useList";
+import StyledShowList from "./WordsTable.styles";
 
 const ShowList = () => {
   const { id } = useParams();
@@ -16,10 +16,10 @@ const ShowList = () => {
     });
   });
 
-  const dispatch = useDispatch();
+  const { fetchList } = useList();
 
   useEffect(() => {
-    dispatch(fetchList(id));
+    fetchList(id);
   }, []);
 
   const renderList = () => {

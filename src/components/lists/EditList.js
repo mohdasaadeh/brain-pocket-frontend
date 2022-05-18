@@ -4,12 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import _ from "lodash";
 import Grid from "@mui/material/Grid";
 
-import ListForm from "./ListForm/ListForm";
-import { fetchList, editList } from "../actions";
-import { useCreateList } from "../hooks";
+import ListForm from "../forms/ListForm";
+import { useList } from "../../hooks/useList";
 
 const EditList = () => {
-  const dispatch = useDispatch();
+  const { fetchList, editList } = useList();
 
   const { id } = useParams();
 
@@ -24,13 +23,15 @@ const EditList = () => {
   });
 
   useEffect(() => {
-    dispatch(fetchList(id));
+    fetchList(id);
   }, []);
 
   const onSubmit = (formValues) => {
-    dispatch(editList(formValues, id));
+    editList(formValues, id);
+  };
 
-    navigate("/lists");
+  const onCancel = () => {
+    navigate(`/lists/${id}`);
   };
 
   return (
@@ -41,6 +42,7 @@ const EditList = () => {
       <Grid item xs={12}>
         <ListForm
           onSubmit={onSubmit}
+          onCancel={onCancel}
           initialValues={
             list
               ? _.pick(

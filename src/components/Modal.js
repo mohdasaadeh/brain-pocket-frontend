@@ -17,6 +17,7 @@ const style = {
 
 export default function BasicModal({ title, content, actions, onDismiss }) {
   const [open, setOpen] = React.useState(true);
+
   const handleClose = () => {
     setOpen(false);
 

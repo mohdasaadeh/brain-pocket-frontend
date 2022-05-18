@@ -13,14 +13,14 @@ const BasicCard = ({ id, title, wordsCount }) => {
       <Card sx={{ minHeight: 250 }}>
         <CardContent>
           <Typography
-            sx={{ fontSize: 14 }}
+            variant="h6"
             color="text.secondary"
             align="center"
             gutterBottom
           >
             Title
           </Typography>
-          <Typography variant="h5" component="div" align="center">
+          <Typography variant="h5" align="center">
             {title}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary" align="center">

@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 
-import { fetchLists } from "../actions/index";
-import ListCard from "./ListCard";
-import NewListCard from "./NewListCard";
+import { useList } from "../../../hooks/useList";
+import StyledListCard from "./ListCard.styles";
+import StyledNewListCard from "./NewListCard.styles";
 
 const Lists = () => {
   const lists = useSelector(({ lists }) => lists);
 
-  const dispatch = useDispatch();
+  const { fetchLists } = useList();
 
   useEffect(() => {
-    dispatch(fetchLists());
+    fetchLists();
   }, []);
 
   const renderLists = () => {
@@ -23,7 +23,7 @@ const Lists = () => {
       const { _id, wordsCount } = list;
 
       return (
-        <ListCard
+        <StyledListCard
           key={list.listId._id}
           id={_id}
           title={title}
@@ -35,7 +35,7 @@ const Lists = () => {
 
   return (
     <Grid container spacing={2} style={{ marginTop: 1 }}>
-      <NewListCard />
+      <StyledNewListCard />
       {renderLists()}
     </Grid>
   );

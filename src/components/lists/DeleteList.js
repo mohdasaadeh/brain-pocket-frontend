@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-import Modal from "./Modal";
-import { fetchList, deleteList } from "../actions";
+import Modal from "../Modal";
+import { useList } from "../../hooks/useList";
 
 const DeleteList = () => {
   const navigate = useNavigate();
@@ -20,10 +20,10 @@ const DeleteList = () => {
     });
   });
 
-  const dispatch = useDispatch();
+  const { fetchList, deleteList } = useList();
 
   useEffect(() => {
-    dispatch(fetchList(id));
+    fetchList(id);
   }, []);
 
   const onDismiss = () => {
@@ -31,9 +31,7 @@ const DeleteList = () => {
   };
 
   const onDelete = () => {
-    dispatch(deleteList(id));
-
-    navigate("/lists");
+    deleteList(id);
   };
 
   const renderActions = () => {

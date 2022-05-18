@@ -4,9 +4,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
-import FormStateToRedux from "./ListFormStateToRedux";
+import ListFormStateToRedux from "./ListFormStateToRedux";
 
-const ListForm = ({ onSubmit, initialValues }) => {
+const ListForm = ({ onSubmit, onCancel, initialValues }) => {
   const navigate = useNavigate();
 
   const renderField = ({ input, meta, placeholder }) => {
@@ -30,7 +30,7 @@ const ListForm = ({ onSubmit, initialValues }) => {
         <Grid container spacing={2} align="center">
           <Grid item xs={12}>
             <form onSubmit={handleSubmit} style={{ marginTop: 10 }}>
-              <FormStateToRedux form="listForm" />
+              <ListFormStateToRedux form="listForm" />
               <div>
                 <Field
                   name="title"
@@ -60,7 +60,7 @@ const ListForm = ({ onSubmit, initialValues }) => {
                   variant="contained"
                   color="secondary"
                   type="button"
-                  onClick={() => navigate("/lists")}
+                  onClick={onCancel}
                   style={{ marginLeft: 5 }}
                 >
                   Cancel

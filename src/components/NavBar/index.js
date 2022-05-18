@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
-import { fetchUser } from "../actions";
+import useAuth from "../../hooks/useAuth";
 import StyledNavBar from "./NavBar.styles";
 
 let pages = [];
@@ -12,10 +12,10 @@ let pagePaths = [];
 const ResponsiveAppBar = () => {
   const user = useSelector(({ auth }) => auth);
 
-  const dispatch = useDispatch();
+  const { fetchUser } = useAuth();
 
   useEffect(() => {
-    dispatch(fetchUser());
+    fetchUser();
   }, []);
 
   const renderAuth = () => {
