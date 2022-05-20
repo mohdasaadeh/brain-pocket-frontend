@@ -12,7 +12,6 @@ const listsReducer = (state = null, action) => {
   switch (action.type) {
     case FETCH_LISTS:
       return _.mapKeys(action.payload, "_id");
-    // return { ...state, ..._.mapKeys(action.payload, "_id") };
     case FETCH_LIST:
       return { ...state, [action.payload._id]: action.payload };
     case CREATE_LIST:

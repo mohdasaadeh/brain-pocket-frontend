@@ -1,35 +1,78 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { DataGrid } from "@mui/x-data-grid";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
-export default function DataTable({ list }) {
+export default function BasicTable({ list, originalWords }) {
   const { listId } = list;
-  const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "firstColumn", headerName: listId.firstColumnTitle, width: 130 },
-    { field: "secondColumn", headerName: listId.secondColumnTitle, width: 130 },
-    { field: "thirdColumn", headerName: listId.thirdColumnTitle, width: 200 },
-  ];
-  const rows = [];
+
+  const rows = originalWords.map((word, index) => {
+    return {
+      firstColumn: word.firstWordId.word,
+      secondColumn: word.secondWordId.word,
+      thirdColumn: word.thirdWordId.word,
+    };
+  });
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <h1 align="center">{listId.title}</h1>
       </Grid>
-      <Grid item xs={6}>
-        <div style={{ height: 400, width: "100%" }}>
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
-            checkboxSelection
-          />
-        </div>
-        <Grid item xs={6} style={{ marginTop: 10 }}>
+      <Grid item xs={12} align="center">
+        <Grid item xs={10}>
+          <div
+            style={{
+              maxHeight: 300,
+              overflowY: "auto",
+            }}
+          >
+            <TableContainer component={Paper}>
+              <Table aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>{listId.firstColumnTitle}</TableCell>
+                    <TableCell>{listId.secondColumnTitle}</TableCell>
+                    <TableCell>{listId.thirdColumnTitle}</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row, index) => (
+                    <TableRow
+                      key={index}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.firstColumn}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {row.secondColumn}
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        style={{
+                          whiteSpace: "normal",
+                          wordBreak: "break-word",
+                        }}
+                      >
+                        {row.thirdColumn}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+        </Grid>
+        <Grid item xs={10} style={{ marginTop: 10 }} align="left">
           <Link
             to={`/lists/${list._id}/edit`}
             style={{ textDecoration: "none" }}
