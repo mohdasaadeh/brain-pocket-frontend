@@ -13,11 +13,14 @@ import Paper from "@mui/material/Paper";
 export default function BasicTable({ list, originalWords }) {
   const { listId } = list;
 
-  const rows = originalWords.map((word, index) => {
+  const rows = originalWords.map((word) => {
+    const { _id, firstWordId, secondWordId, thirdWordId } = word;
+
     return {
-      firstColumn: word.firstWordId.word,
-      secondColumn: word.secondWordId.word,
-      thirdColumn: word.thirdWordId.word,
+      _id,
+      firstColumn: firstWordId.word,
+      secondColumn: secondWordId.word,
+      thirdColumn: thirdWordId.word,
     };
   });
 
@@ -44,9 +47,9 @@ export default function BasicTable({ list, originalWords }) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row, index) => (
+                  {rows.map((row) => (
                     <TableRow
-                      key={index}
+                      key={row._id}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
