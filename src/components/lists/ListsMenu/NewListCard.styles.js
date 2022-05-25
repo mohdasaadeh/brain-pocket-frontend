@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { green } from "@mui/material/colors";
 import { loadCSS } from "fg-loadcss";
 import Icon from "@mui/material/Icon";
-import Grid from "@mui/material/Grid";
 import { Button, Typography } from "@mui/material";
 
 const BasicCard = () => {
@@ -19,19 +18,17 @@ const BasicCard = () => {
   }, []);
 
   return (
-    <Grid item xs={3}>
-      <Typography sx={{ minHeight: 250 }}>
-        <Link to={"/lists/new"} style={{ textDecoration: "none" }}>
-          <Button sx={{ color: green[500], minHeight: 250 }} fullWidth>
-            <Icon
-              baseClassName="fas"
-              className="fa-plus-circle"
-              sx={{ fontSize: 100 }}
-            />
-          </Button>
-        </Link>
-      </Typography>
-    </Grid>
+    <Typography sx={{ minHeight: 250, minWidth: 250 }}>
+      <Link to={"/lists/new"} style={{ textDecoration: "none" }}>
+        <Button sx={{ color: green[500], minHeight: 250 }} fullWidth>
+          <Icon
+            baseClassName="fas"
+            className="fa-plus-circle"
+            sx={{ fontSize: 100 }}
+          />
+        </Button>
+      </Link>
+    </Typography>
   );
 };
 

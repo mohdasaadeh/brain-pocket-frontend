@@ -23,19 +23,18 @@ const Lists = () => {
       const { _id, wordsCount } = list;
 
       return (
-        <StyledListCard
-          key={list.listId._id}
-          id={_id}
-          title={title}
-          wordsCount={wordsCount}
-        />
+        <Grid key={list.listId._id} item xs={12} sm={6} md={3}>
+          <StyledListCard id={_id} title={title} wordsCount={wordsCount} />
+        </Grid>
       );
     });
   };
 
   return (
     <Grid container spacing={2} style={{ marginTop: 1 }}>
-      <StyledNewListCard />
+      <Grid item xs={12} sm={6} md={3}>
+        <StyledNewListCard />
+      </Grid>
       {renderLists()}
     </Grid>
   );

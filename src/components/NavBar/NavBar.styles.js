@@ -23,7 +23,7 @@ const StyledNavBar = ({ logo, pages, pagePaths, renderAuth }) => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ height: "10%" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link to="/" style={{ textDecoration: "none" }}>

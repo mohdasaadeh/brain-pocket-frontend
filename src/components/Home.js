@@ -1,4 +1,5 @@
 import * as React from "react";
+import Paper from "@mui/material/Paper";
 
 export default function Home() {
   const style = {
@@ -10,5 +11,5 @@ export default function Home() {
     height: "100%",
   };
 
-  return <div style={style}></div>;
+  return <Paper square sx={{ height: "90%" }} style={style}></Paper>;
 }
