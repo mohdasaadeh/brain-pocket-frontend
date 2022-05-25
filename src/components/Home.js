@@ -1,7 +1,14 @@
-import React from "react";
+import * as React from "react";
 
-const Home = () => {
-  return <h1 style={{ textAlign: "center" }}>Home</h1>;
-};
+export default function Home() {
+  const style = {
+    backgroundImage: `url("brain-pocket.png")`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100% 100%",
+    position: "fixed",
+    width: "100%",
+    height: "100%",
+  };
 
-export default Home;
+  return <div style={style}></div>;
+}

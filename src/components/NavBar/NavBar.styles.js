@@ -26,14 +26,20 @@ const StyledNavBar = ({ logo, pages, pagePaths, renderAuth }) => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-          >
-            {logo}
-          </Typography>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                color: "white",
+              }}
+            >
+              {logo}
+            </Typography>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -76,13 +82,19 @@ const StyledNavBar = ({ logo, pages, pagePaths, renderAuth }) => {
               ))}
             </Menu>
           </Box>
+
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex", md: "none" },
+            }}
           >
-            {logo}
+            <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+              {logo}
+            </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page, index) => (

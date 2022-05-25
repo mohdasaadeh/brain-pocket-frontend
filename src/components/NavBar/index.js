@@ -26,7 +26,6 @@ const ResponsiveAppBar = () => {
             <Button href="/api/user/login/google" color="inherit">
               LOGIN WITH GOOGLE
             </Button>
-            <Button color="inherit">REGISTER</Button>
           </Box>
         );
       default:
