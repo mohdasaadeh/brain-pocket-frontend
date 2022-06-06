@@ -27,11 +27,15 @@ export const useList = () => {
   };
 
   const createList = async (formValues) => {
-    const { data } = await axios.post("/api/lists/new", formValues);
+    try {
+      const { data } = await axios.post("/api/lists/neww", formValues);
 
-    dispatch({ type: CREATE_LIST, payload: data });
+      dispatch({ type: CREATE_LIST, payload: data });
 
-    navigate(`/lists/${data._id}`);
+      navigate(`/lists/${data._id}`);
+    } catch (error) {
+      return error;
+    }
   };
 
   const deleteList = async (id) => {
