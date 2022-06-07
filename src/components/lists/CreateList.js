@@ -22,11 +22,11 @@ const CreateListForm = () => {
     }
   };
 
-  if (error) throw error;
-
   const onCancel = () => {
     navigate("/lists");
   };
+
+  if (error) throw error;
 
   return <ListForm onSubmit={onSubmit} onCancel={onCancel} />;
 };

@@ -9,6 +9,7 @@ import {
   DELETE_LIST,
   EDIT_LIST,
 } from "../actions/types";
+import errorHandler from "../components/utils/errorHandler";
 
 export const useList = () => {
   const dispatch = useDispatch();
@@ -26,17 +27,13 @@ export const useList = () => {
     dispatch({ type: FETCH_LIST, payload: data });
   };
 
-  const createList = async (formValues) => {
-    try {
-      const { data } = await axios.post("/api/lists/new", formValues);
+  const createList = errorHandler(async (formValues) => {
+    const { data } = await axios.post("/api/lists/new", formValues);
 
-      dispatch({ type: CREATE_LIST, payload: data });
+    dispatch({ type: CREATE_LIST, payload: data });
 
-      navigate(`/lists/${data._id}`);
-    } catch (error) {
-      return error;
-    }
-  };
+    navigate(`/lists/${data._id}`);
+  });
 
   const deleteList = async (id) => {
     const { data } = await axios.delete(`/api/lists/${id}/delete`);
