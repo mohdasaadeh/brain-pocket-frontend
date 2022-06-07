@@ -28,7 +28,7 @@ export const useList = () => {
 
   const createList = async (formValues) => {
     try {
-      const { data } = await axios.post("/api/lists/neww", formValues);
+      const { data } = await axios.post("/api/lists/new", formValues);
 
       dispatch({ type: CREATE_LIST, payload: data });
 
