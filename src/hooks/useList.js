@@ -15,11 +15,11 @@ export const useList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const fetchLists = async () => {
+  const fetchLists = errorHandler(async () => {
     const { data } = await axios.get("/api/lists");
 
     dispatch({ type: FETCH_LISTS, payload: data });
-  };
+  });
 
   const fetchList = async (id) => {
     const { data } = await axios.get(`/api/lists/${id}`);

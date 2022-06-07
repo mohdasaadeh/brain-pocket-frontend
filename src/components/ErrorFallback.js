@@ -10,7 +10,7 @@ function ErrorFallback({ error, resetErrorBoundary }) {
         severity="error"
         action={
           <Button color="inherit" size="small" onClick={resetErrorBoundary}>
-            RESET
+            TRY AGAIN
           </Button>
         }
       >
