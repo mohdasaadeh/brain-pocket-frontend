@@ -1,19 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { ErrorBoundary } from "react-error-boundary";
 
 import Modal from "../Modal";
 import { useList } from "../../hooks/useList";
+import ErrorFallback from "../ErrorFallback";
 
 const DeleteList = () => {
+  const [error, setError] = useState(null);
+
   const navigate = useNavigate();
 
   const { id } = useParams();
 
   const list = useSelector(({ lists }) => {
-    if (!lists) return {};
+    if (!lists) return null;
 
     return Object.values(lists).find((list) => {
       return list._id === id;
@@ -23,15 +27,27 @@ const DeleteList = () => {
   const { fetchList, deleteList } = useList();
 
   useEffect(() => {
-    fetchList(id);
+    const asyncUseEffect = async () => {
+      try {
+        await fetchList(id);
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    asyncUseEffect();
   }, []);
 
   const onDismiss = () => {
     navigate(`/lists/${id}`);
   };
 
-  const onDelete = () => {
-    deleteList(id);
+  const onDelete = async () => {
+    try {
+      deleteList(id);
+    } catch (error) {
+      setError(error);
+    }
   };
 
   const renderActions = () => {
@@ -58,6 +74,8 @@ const DeleteList = () => {
     return `Are you sure that you want to delete "${list.listId.title}" list?`;
   };
 
+  if (error) throw error;
+
   return (
     <Modal
       title="List Delete"
@@ -68,4 +86,12 @@ const DeleteList = () => {
   );
 };
 
-export default DeleteList;
+const DeleteListErrorBoundary = () => {
+  return (
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <DeleteList />
+    </ErrorBoundary>
+  );
+};
+
+export default DeleteListErrorBoundary;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import { ErrorBoundary } from "react-error-boundary";
@@ -14,7 +14,7 @@ const Lists = () => {
 
   const { fetchLists } = useList();
 
-  const [error, setError] = useEffectErrorHandler(() => fetchLists());
+  const [error] = useEffectErrorHandler(async () => await fetchLists());
 
   const renderLists = () => {
     if (!lists) return null;

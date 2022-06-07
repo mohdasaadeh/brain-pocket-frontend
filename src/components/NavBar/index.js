@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { ErrorBoundary } from "react-error-boundary";
 
 import useAuth from "../../hooks/useAuth";
 import StyledNavBar from "./NavBar.styles";
+import ErrorFallback from "../ErrorFallback";
+import useEffectErrorHandler from "../../hooks/useEffectErrorHandler";
 
 let pages = [];
 let pagePaths = [];
@@ -14,9 +17,7 @@ const ResponsiveAppBar = () => {
 
   const { fetchUser } = useAuth();
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
+  const [error] = useEffectErrorHandler(async () => await fetchUser());
 
   const renderAuth = () => {
     switch (user) {
@@ -46,6 +47,8 @@ const ResponsiveAppBar = () => {
     pagePaths = ["/lists"];
   })();
 
+  if (error) throw error;
+
   return (
     <StyledNavBar
       logo="BRAIN-POCKET"
@@ -56,4 +59,12 @@ const ResponsiveAppBar = () => {
   );
 };
 
-export default ResponsiveAppBar;
+const AppBarErrorBoundary = () => {
+  return (
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <ResponsiveAppBar />
+    </ErrorBoundary>
+  );
+};
+
+export default AppBarErrorBoundary;

@@ -1,27 +1,32 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
 
 import { useList } from "../../../hooks/useList";
 import { useWord } from "../../../hooks/useWord";
 import StyledWordsTable from "./WordsTable.styles";
+import ErrorFallback from "../../ErrorFallback";
+import useEffectErrorHandler from "../../../hooks/useEffectErrorHandler";
 
-const ShowList = ({ lists, originalWords }) => {
+const ListTable = ({ lists, originalWords }) => {
   const { id } = useParams();
 
   const { fetchList } = useList();
   const { fetchOriginalWords, deleteOriginalWords } = useWord();
 
-  useEffect(() => {
-    fetchList(id);
-    fetchOriginalWords(id);
+  const [error] = useEffectErrorHandler(async () => {
+    await fetchList(id);
+    await fetchOriginalWords(id);
+  });
 
+  useEffect(() => {
     return () => {
       deleteOriginalWords();
     };
   }, []);
 
-  const renderList = () => {
+  const renderListTable = () => {
     if (!lists || !originalWords) return null;
 
     const list = Object.values(lists).find((list) => {
@@ -29,14 +34,20 @@ const ShowList = ({ lists, originalWords }) => {
     });
     const originalWordsArray = Object.values(originalWords);
 
-    return (
-      <div>
-        <StyledWordsTable list={list} originalWords={originalWordsArray} />
-      </div>
-    );
+    return <StyledWordsTable list={list} originalWords={originalWordsArray} />;
   };
 
-  return renderList();
+  if (error) throw error;
+
+  return renderListTable();
+};
+
+const ShowList = (props) => {
+  return (
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <ListTable {...props} />
+    </ErrorBoundary>
+  );
 };
 
 const mapStatetoProps = (state) => {

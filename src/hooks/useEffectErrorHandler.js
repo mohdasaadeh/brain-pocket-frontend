@@ -6,9 +6,11 @@ const useEffectErrorHandler = (fn) => {
   useEffect(() => {
     const asyncUseEffect = () => {
       return async (...props) => {
-        const error = await fn(props);
-
-        if (error) setError(error);
+        try {
+          await fn(...props);
+        } catch (error) {
+          setError(error);
+        }
       };
     };
 

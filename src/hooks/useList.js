@@ -9,7 +9,7 @@ import {
   DELETE_LIST,
   EDIT_LIST,
 } from "../actions/types";
-import errorHandler from "../components/utils/errorHandler";
+import errorHandler from "../utils/errorHandler";
 
 export const useList = () => {
   const dispatch = useDispatch();
@@ -21,11 +21,11 @@ export const useList = () => {
     dispatch({ type: FETCH_LISTS, payload: data });
   });
 
-  const fetchList = async (id) => {
+  const fetchList = errorHandler(async (id) => {
     const { data } = await axios.get(`/api/lists/${id}`);
 
     dispatch({ type: FETCH_LIST, payload: data });
-  };
+  });
 
   const createList = errorHandler(async (formValues) => {
     const { data } = await axios.post("/api/lists/new", formValues);
@@ -35,21 +35,21 @@ export const useList = () => {
     navigate(`/lists/${data._id}`);
   });
 
-  const deleteList = async (id) => {
+  const deleteList = errorHandler(async (id) => {
     const { data } = await axios.delete(`/api/lists/${id}/delete`);
 
     dispatch({ type: DELETE_LIST, payload: data });
 
     navigate("/lists");
-  };
+  });
 
-  const editList = async (formValues, id) => {
+  const editList = errorHandler(async (formValues, id) => {
     const { data } = await axios.put(`/api/lists/${id}/edit`, formValues);
 
     dispatch({ type: EDIT_LIST, payload: data });
 
     navigate(`/lists/${data._id}`);
-  };
+  });
 
   return {
     fetchList,
