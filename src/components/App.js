@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
 import NavBar from "./NavBar";
@@ -11,6 +10,7 @@ import ShowList from "./lists/ShowList";
 import CreateList from "./lists/CreateList";
 import EditList from "./lists/EditList";
 import DeleteList from "./lists/DeleteList";
+import NotFound from "./NotFound";
 
 const App = () => {
   return (
@@ -25,6 +25,7 @@ const App = () => {
           <Route path="/lists/:id" element={<ShowList />} />
           <Route path="/lists/:id/edit" element={<EditList />} />
           <Route path="/lists/:id/delete" element={<DeleteList />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Box>
     </React.Fragment>
