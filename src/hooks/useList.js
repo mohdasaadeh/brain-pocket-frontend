@@ -8,6 +8,7 @@ import {
   CREATE_LIST,
   DELETE_LIST,
   EDIT_LIST,
+  DELETE_LISTS,
 } from "../actions/types";
 import errorHandler from "../utils/errorHandler";
 
@@ -51,11 +52,16 @@ export const useList = () => {
     navigate(`/lists/${data._id}`);
   });
 
+  const deleteLists = errorHandler(async () => {
+    dispatch({ type: DELETE_LISTS });
+  });
+
   return {
     fetchList,
     fetchLists,
     createList,
     deleteList,
     editList,
+    deleteLists,
   };
 };

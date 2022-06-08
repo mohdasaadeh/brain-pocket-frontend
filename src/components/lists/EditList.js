@@ -12,7 +12,7 @@ import ErrorFallback from "../ErrorFallback";
 const EditListForm = () => {
   const [error, setError] = useState(null);
 
-  const { fetchList, editList } = useList();
+  const { fetchList, editList, deleteLists } = useList();
 
   const { id } = useParams();
 
@@ -36,6 +36,8 @@ const EditListForm = () => {
     };
 
     asyncUseEffect();
+
+    return () => deleteLists();
   }, []);
 
   const onSubmit = async (formValues) => {

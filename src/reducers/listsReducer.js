@@ -6,6 +6,7 @@ import {
   CREATE_LIST,
   DELETE_LIST,
   EDIT_LIST,
+  DELETE_LISTS,
 } from "../actions/types";
 
 const listsReducer = (state = null, action) => {
@@ -20,6 +21,8 @@ const listsReducer = (state = null, action) => {
       return _.omit(state, action.payload);
     case EDIT_LIST:
       return { ...state, [action.payload._id]: action.payload };
+    case DELETE_LISTS:
+      return null;
     default:
       return state;
   }

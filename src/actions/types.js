@@ -6,6 +6,7 @@ export const EDIT_LIST = "EDIT_LIST";
 export const DELETE_LIST = "DELETE_LIST";
 export const FETCH_LIST = "FETCH_LIST";
 export const LIST_FORM = "LIST_FORM";
+export const DELETE_LISTS = "DELETE_LISTS";
 
 export const FETCH_ORIGINAL_WORDS = "FETCH_ORIGINAL_WORDS";
 export const DELETE_ORIGINAL_WORDS = "DELETE_ORIGINAL_WORDS";
