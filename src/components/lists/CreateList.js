@@ -15,9 +15,9 @@ const CreateListForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (formValues) => {
-    const error = await createList(formValues);
-
-    if (error) {
+    try {
+      await createList(formValues);
+    } catch (error) {
       setError(error);
     }
   };
