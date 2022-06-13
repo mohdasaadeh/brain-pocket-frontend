@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -17,7 +17,7 @@ const ResponsiveAppBar = () => {
 
   const { fetchUser } = useAuth();
 
-  const [error] = useEffectErrorHandler(async () => await fetchUser());
+  const [error] = useEffectErrorHandler(useCallback(async () => await fetchUser(), [fetchUser]));
 
   const renderAuth = () => {
     switch (user) {

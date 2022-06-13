@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
@@ -15,16 +15,16 @@ const ListTable = ({ lists, originalWords }) => {
   const { fetchList } = useList();
   const { fetchOriginalWords, deleteOriginalWords } = useWord();
 
-  const [error] = useEffectErrorHandler(async () => {
+  const [error] = useEffectErrorHandler(useCallback(async () => {
     await fetchList(id);
     await fetchOriginalWords(id);
-  });
+  }, [fetchList, fetchOriginalWords, id]));
 
   useEffect(() => {
     return () => {
       deleteOriginalWords();
     };
-  }, []);
+  }, [deleteOriginalWords]);
 
   const renderListTable = () => {
     if (!lists || !originalWords) return null;

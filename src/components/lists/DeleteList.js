@@ -36,7 +36,7 @@ const DeleteList = () => {
     };
 
     asyncUseEffect();
-  }, []);
+  }, [fetchList, id]);
 
   const onDismiss = () => {
     navigate(`/lists/${id}`);

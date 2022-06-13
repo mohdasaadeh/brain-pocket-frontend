@@ -15,7 +15,7 @@ const useEffectErrorHandler = (fn) => {
     };
 
     asyncUseEffect()();
-  }, []);
+  }, [fn]);
 
   return [error, setError];
 };

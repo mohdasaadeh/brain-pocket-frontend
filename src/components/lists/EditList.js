@@ -38,7 +38,7 @@ const EditListForm = () => {
     asyncUseEffect();
 
     return () => deleteLists();
-  }, []);
+  }, [fetchList, deleteLists, id]);
 
   const onSubmit = async (formValues) => {
     try {
