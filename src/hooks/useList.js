@@ -9,53 +9,80 @@ import {
   CREATE_LIST,
   DELETE_LIST,
   EDIT_LIST,
-  DELETE_LISTS,
+  DELETE_LISTS
 } from "../actions/types";
 import useErrorHandler from "./useErrorHandler";
+import useSafeDispatch from "./useSafeDispatch";
 
 export const useList = () => {
   const dispatch = useDispatch();
+  const safeDispatch = useSafeDispatch(dispatch);
+
   const navigate = useNavigate();
 
-  const fetchLists = useErrorHandler(useCallback(async () => {
-    const { data } = await axios.get("/api/lists");
+  const fetchLists = useErrorHandler(
+    useCallback(async () => {
+      const { data } = await axios.get("/api/lists");
 
-    dispatch({ type: FETCH_LISTS, payload: data });
-  }, [dispatch]));
+      safeDispatch({ type: FETCH_LISTS, payload: data });
+    }, [safeDispatch])
+  );
 
-  const fetchList = useErrorHandler(useCallback(async (id) => {
-    const { data } = await axios.get(`/api/lists/${id}`);
+  const fetchList = useErrorHandler(
+    useCallback(
+      async id => {
+        const { data } = await axios.get(`/api/lists/${id}`);
 
-    dispatch({ type: FETCH_LIST, payload: data });
-  }, [dispatch]));
+        safeDispatch({ type: FETCH_LIST, payload: data });
+      },
+      [safeDispatch]
+    )
+  );
 
-  const createList = useErrorHandler(useCallback(async (formValues) => {
-    const { data } = await axios.post("/api/lists/new", formValues);
+  const createList = useErrorHandler(
+    useCallback(
+      async formValues => {
+        const { data } = await axios.post("/api/lists/new", formValues);
 
-    dispatch({ type: CREATE_LIST, payload: data });
+        safeDispatch({ type: CREATE_LIST, payload: data });
 
-    navigate(`/lists/${data._id}`);
-  }, [dispatch, navigate]));
+        navigate(`/lists/${data._id}`);
+      },
+      [safeDispatch, navigate]
+    )
+  );
 
-  const deleteList = useErrorHandler(useCallback(async (id) => {
-    const { data } = await axios.delete(`/api/lists/${id}/delete`);
+  const deleteList = useErrorHandler(
+    useCallback(
+      async id => {
+        const { data } = await axios.delete(`/api/lists/${id}/delete`);
 
-    dispatch({ type: DELETE_LIST, payload: data });
+        safeDispatch({ type: DELETE_LIST, payload: data });
 
-    navigate("/lists");
-  }, [dispatch, navigate]));
+        navigate("/lists");
+      },
+      [safeDispatch, navigate]
+    )
+  );
 
-  const editList = useErrorHandler(useCallback(async (formValues, id) => {
-    const { data } = await axios.put(`/api/lists/${id}/edit`, formValues);
+  const editList = useErrorHandler(
+    useCallback(
+      async (formValues, id) => {
+        const { data } = await axios.put(`/api/lists/${id}/edit`, formValues);
 
-    dispatch({ type: EDIT_LIST, payload: data });
+        safeDispatch({ type: EDIT_LIST, payload: data });
 
-    navigate(`/lists/${data._id}`);
-  }, [dispatch, navigate]));
+        navigate(`/lists/${data._id}`);
+      },
+      [safeDispatch, navigate]
+    )
+  );
 
-  const deleteLists = useErrorHandler(useCallback(async () => {
-    dispatch({ type: DELETE_LISTS });
-  }, [dispatch]));
+  const deleteLists = useErrorHandler(
+    useCallback(async () => {
+      safeDispatch({ type: DELETE_LISTS });
+    }, [safeDispatch])
+  );
 
   return {
     fetchList,
@@ -63,6 +90,6 @@ export const useList = () => {
     createList,
     deleteList,
     editList,
-    deleteLists,
+    deleteLists
   };
 };
