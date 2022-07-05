@@ -14,7 +14,7 @@ function ErrorFallback({ error, resetErrorBoundary }) {
           </Button>
         }
       >
-        {error.message}
+        {error.response.data}
       </Alert>
     </Stack>
   );

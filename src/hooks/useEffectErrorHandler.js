@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useEffectErrorHandler = (fn) => {
+const useEffectErrorHandler = fn => {
   const [error, setError] = useState(null);
 
   useEffect(() => {

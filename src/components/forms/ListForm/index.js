@@ -6,17 +6,17 @@ import Grid from "@mui/material/Grid";
 import ListFormStateToRedux from "./ListFormStateToRedux";
 
 const ListForm = ({ onSubmit, onCancel, initialValues }) => {
-  const required = (value) => (value ? undefined : "Required");
+  const required = value => (value ? undefined : "Required");
 
-  const minValue = (min) => (value) =>
+  const minValue = min => value =>
     value.length >= min ? undefined : `Should be greater than ${min}`;
 
-  const maxValue = (max) => (value) =>
+  const maxValue = max => value =>
     value.length <= max ? undefined : `Should be less than ${max}`;
 
   const composeValidators =
     (...validators) =>
-    (value) =>
+    value =>
       validators.reduce(
         (error, validator) => error || validator(value),
         undefined

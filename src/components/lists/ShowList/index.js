@@ -15,10 +15,12 @@ const ListTable = ({ lists, originalWords }) => {
   const { fetchList } = useList();
   const { fetchOriginalWords, deleteOriginalWords } = useWord();
 
-  const [error] = useEffectErrorHandler(useCallback(async () => {
-    await fetchList(id);
-    await fetchOriginalWords(id);
-  }, [fetchList, fetchOriginalWords, id]));
+  const [error] = useEffectErrorHandler(
+    useCallback(async () => {
+      await fetchList(id);
+      await fetchOriginalWords(id);
+    }, [fetchList, fetchOriginalWords, id])
+  );
 
   useEffect(() => {
     return () => {
@@ -29,7 +31,7 @@ const ListTable = ({ lists, originalWords }) => {
   const renderListTable = () => {
     if (!lists || !originalWords) return null;
 
-    const list = Object.values(lists).find((list) => {
+    const list = Object.values(lists).find(list => {
       return list._id === id;
     });
     const originalWordsArray = Object.values(originalWords);
@@ -42,7 +44,7 @@ const ListTable = ({ lists, originalWords }) => {
   return renderListTable();
 };
 
-const ShowList = (props) => {
+const ShowList = props => {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <ListTable {...props} />
@@ -50,10 +52,10 @@ const ShowList = (props) => {
   );
 };
 
-const mapStatetoProps = (state) => {
+const mapStatetoProps = state => {
   return {
     lists: state.lists,
-    originalWords: state.originalWords,
+    originalWords: state.originalWords
   };
 };
 
