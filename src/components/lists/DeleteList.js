@@ -8,9 +8,12 @@ import { ErrorBoundary } from "react-error-boundary";
 import Modal from "../Modal";
 import { useList } from "../../hooks/useList";
 import ErrorFallback from "../ErrorFallback";
+import useAuthHandler from "../../hooks/useAuthHandler";
 
 const DeleteList = () => {
   const [error, setError] = useState(null);
+
+  useAuthHandler({ setError });
 
   const navigate = useNavigate();
 
@@ -19,7 +22,7 @@ const DeleteList = () => {
   const list = useSelector(({ lists }) => {
     if (!lists) return null;
 
-    return Object.values(lists).find((list) => {
+    return Object.values(lists).find(list => {
       return list._id === id;
     });
   });

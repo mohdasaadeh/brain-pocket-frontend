@@ -8,9 +8,12 @@ import { ErrorBoundary } from "react-error-boundary";
 import ListForm from "../forms/ListForm";
 import { useList } from "../../hooks/useList";
 import ErrorFallback from "../ErrorFallback";
+import useAuthHandler from "../../hooks/useAuthHandler";
 
 const EditListForm = () => {
   const [error, setError] = useState(null);
+
+  useAuthHandler({ setError });
 
   const { fetchList, editList, deleteLists } = useList();
 
@@ -21,7 +24,7 @@ const EditListForm = () => {
   const list = useSelector(({ lists }) => {
     if (!lists) return null;
 
-    return Object.values(lists).find((list) => {
+    return Object.values(lists).find(list => {
       return list._id === id;
     });
   });
@@ -40,7 +43,7 @@ const EditListForm = () => {
     return () => deleteLists();
   }, [fetchList, deleteLists, id]);
 
-  const onSubmit = async (formValues) => {
+  const onSubmit = async formValues => {
     try {
       await editList(formValues, id);
     } catch (error) {

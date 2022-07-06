@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, { useCallback } from "react";
 import { useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import { ErrorBoundary } from "react-error-boundary";
@@ -8,18 +8,23 @@ import useEffectErrorHandler from "../../../hooks/useEffectErrorHandler";
 import StyledListCard from "./ListCard.styles";
 import StyledNewListCard from "./NewListCard.styles";
 import ErrorFallback from "../../ErrorFallback";
+import useAuthHandler from "../../../hooks/useAuthHandler";
 
 const Lists = () => {
   const lists = useSelector(({ lists }) => lists);
 
   const { fetchLists } = useList();
 
-  const [error] = useEffectErrorHandler(useCallback(async () => await fetchLists(), [fetchLists]));
+  const [error, setError] = useEffectErrorHandler(
+    useCallback(async () => await fetchLists(), [fetchLists])
+  );
+
+  useAuthHandler({ setError });
 
   const renderLists = () => {
     if (!lists) return null;
 
-    return Object.values(lists).map((list) => {
+    return Object.values(lists).map(list => {
       const { title } = list.listId;
       const { _id, wordsCount } = list;
 

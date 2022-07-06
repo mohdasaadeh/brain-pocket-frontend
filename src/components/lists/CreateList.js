@@ -6,15 +6,18 @@ import Grid from "@mui/material/Grid";
 import ListForm from "../forms/ListForm";
 import { useList } from "../../hooks/useList";
 import ErrorFallback from "../ErrorFallback";
+import useAuthHandler from "../../hooks/useAuthHandler";
 
 const CreateListForm = () => {
   const [error, setError] = useState(null);
+
+  useAuthHandler({ setError });
 
   const { createList } = useList();
 
   const navigate = useNavigate();
 
-  const onSubmit = async (formValues) => {
+  const onSubmit = async formValues => {
     try {
       await createList(formValues);
     } catch (error) {

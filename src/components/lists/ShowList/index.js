@@ -8,6 +8,7 @@ import { useWord } from "../../../hooks/useWord";
 import StyledWordsTable from "./WordsTable.styles";
 import ErrorFallback from "../../ErrorFallback";
 import useEffectErrorHandler from "../../../hooks/useEffectErrorHandler";
+import useAuthHandler from "../../../hooks/useAuthHandler";
 
 const ListTable = () => {
   const { id } = useParams();
@@ -31,12 +32,14 @@ const ListTable = () => {
     (prev, next) => JSON.stringify(prev) === JSON.stringify(next)
   );
 
-  const [error] = useEffectErrorHandler(
+  const [error, setError] = useEffectErrorHandler(
     useCallback(async () => {
       await fetchList(id);
       await fetchOriginalWords(id);
     }, [fetchList, fetchOriginalWords, id])
   );
+
+  useAuthHandler({ setError });
 
   useEffect(() => {
     return () => {
