@@ -2,7 +2,11 @@ import axios from "axios";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 
-import { FETCH_ORIGINAL_WORDS, DELETE_ORIGINAL_WORDS } from "../actions/types";
+import {
+  FETCH_ORIGINAL_WORDS,
+  DELETE_ORIGINAL_WORDS,
+  DELETE_ORIGINAL_WORD
+} from "../actions/types";
 import useErrorHandler from "./useErrorHandler";
 import useSafeDispatch from "./useSafeDispatch";
 
@@ -27,5 +31,19 @@ export const useWord = () => {
     }, [safeDispatch])
   );
 
-  return { fetchOriginalWords, deleteOriginalWords };
+  const deleteOriginalWord = useErrorHandler(
+    useCallback(
+      async (listRelationId, id) => {
+        const { data } = await axios.delete(
+          `/api/lists/${listRelationId}/original_words/${id}/delete`,
+          id
+        );
+
+        safeDispatch({ type: DELETE_ORIGINAL_WORD, payload: data });
+      },
+      [safeDispatch]
+    )
+  );
+
+  return { fetchOriginalWords, deleteOriginalWords, deleteOriginalWord };
 };

@@ -1,6 +1,10 @@
 import _ from "lodash";
 
-import { FETCH_ORIGINAL_WORDS, DELETE_ORIGINAL_WORDS } from "../actions/types";
+import {
+  FETCH_ORIGINAL_WORDS,
+  DELETE_ORIGINAL_WORDS,
+  DELETE_ORIGINAL_WORD
+} from "../actions/types";
 
 const originalWordsReducer = (state = null, action) => {
   switch (action.type) {
@@ -8,6 +12,8 @@ const originalWordsReducer = (state = null, action) => {
       return _.mapKeys(action.payload, "_id");
     case DELETE_ORIGINAL_WORDS:
       return null;
+    case DELETE_ORIGINAL_WORD:
+      return _.omit(state, action.payload);
     default:
       return state;
   }
