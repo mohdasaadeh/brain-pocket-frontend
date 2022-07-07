@@ -71,19 +71,25 @@ function EnhancedTableHead(props) {
 
   const headCells = [
     {
-      id: listId.firstColumnTitle,
+      id: "id",
       numeric: false,
       disablePadding: true,
+      label: "ID"
+    },
+    {
+      id: "firstColumnTitle",
+      numeric: false,
+      disablePadding: false,
       label: listId.firstColumnTitle
     },
     {
-      id: listId.secondColumnTitle,
+      id: "secondColumnTitle",
       numeric: false,
       disablePadding: false,
       label: listId.secondColumnTitle
     },
     {
-      id: listId.thirdColumnTitle,
+      id: "thirdColumnTitle",
       numeric: false,
       disablePadding: false,
       label: listId.thirdColumnTitle
@@ -221,21 +227,21 @@ EnhancedTableToolbar.propTypes = {
 
 export default function EnhancedTable({ list, originalWords }) {
   const { listId } = list;
-  const { firstColumnTitle, secondColumnTitle, thirdColumnTitle } = listId;
 
-  const rows = originalWords.map(word => {
+  const rows = originalWords.map((word, index) => {
     const { _id, firstWordId, secondWordId, thirdWordId } = word;
 
     return {
       name: _id,
-      [firstColumnTitle]: firstWordId.word,
-      [secondColumnTitle]: secondWordId.word,
-      [thirdColumnTitle]: thirdWordId.word
+      id: originalWords.length - index,
+      firstColumnTitle: firstWordId.word,
+      secondColumnTitle: secondWordId.word,
+      thirdColumnTitle: thirdWordId.word
     };
   });
 
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState(firstColumnTitle);
+  const [order, setOrder] = React.useState("desc");
+  const [orderBy, setOrderBy] = React.useState("id");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -347,15 +353,19 @@ export default function EnhancedTable({ list, originalWords }) {
                           }}
                         />
                       </TableCell>
-                      <TableCell align="left">
-                        {row[firstColumnTitle]}
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
+                      >
+                        {row.id}
                       </TableCell>
+                      <TableCell align="left">{row.firstColumnTitle}</TableCell>
                       <TableCell align="left">
-                        {row[secondColumnTitle]}
+                        {row.secondColumnTitle}
                       </TableCell>
-                      <TableCell align="left">
-                        {row[thirdColumnTitle]}
-                      </TableCell>
+                      <TableCell align="left">{row.thirdColumnTitle}</TableCell>
                       <TableCell align="left">
                         <Button variant="contained">Edit</Button>
                       </TableCell>
