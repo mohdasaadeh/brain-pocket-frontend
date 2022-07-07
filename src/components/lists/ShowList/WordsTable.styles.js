@@ -199,16 +199,14 @@ const EnhancedTableToolbar = props => {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Add New Word">
-          <Link
-            to={`/lists/${list._id}/original_words/new`}
-            style={{ textDecoration: "none" }}
-          >
-            <Button variant="contained" style={{ width: "175px" }}>
-              Add New Word
-            </Button>
-          </Link>
-        </Tooltip>
+        <Link
+          to={`/lists/${list._id}/original_words/new`}
+          style={{ textDecoration: "none" }}
+        >
+          <Button variant="contained" style={{ width: "175px" }}>
+            Add New Word
+          </Button>
+        </Link>
       )}
     </Toolbar>
   );
