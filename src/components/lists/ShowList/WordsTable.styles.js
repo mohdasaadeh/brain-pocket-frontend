@@ -148,12 +148,14 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = props => {
-  const { numSelected, selected, list } = props;
+  const { numSelected, selected, setSelected, list } = props;
 
   const { deleteOriginalWord } = useWord();
 
   const handleDelete = () => {
     selected.forEach(word => deleteOriginalWord(list._id, word));
+
+    setSelected([]);
   };
 
   return (
@@ -211,6 +213,7 @@ const EnhancedTableToolbar = props => {
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
   selected: PropTypes.array.isRequired,
+  setSelected: PropTypes.func.isRequired,
   list: PropTypes.object.isRequired
 };
 
@@ -296,6 +299,7 @@ export default function EnhancedTable({ list, originalWords }) {
         <EnhancedTableToolbar
           numSelected={selected.length}
           selected={selected}
+          setSelected={setSelected}
           list={list}
         />
         <TableContainer>
