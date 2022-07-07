@@ -27,8 +27,8 @@ export const useWord = () => {
 
   const deleteOriginalWords = useErrorHandler(
     useCallback(() => {
-      safeDispatch({ type: DELETE_ORIGINAL_WORDS });
-    }, [safeDispatch])
+      dispatch({ type: DELETE_ORIGINAL_WORDS });
+    }, [dispatch])
   );
 
   const deleteOriginalWord = useErrorHandler(
