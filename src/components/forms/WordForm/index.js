@@ -22,7 +22,22 @@ const WordForm = ({ onSubmit, onCancel, initialValues }) => {
         {...input}
         label={placeholder}
         variant="standard"
-        style={{ minWidth: 400 }}
+        style={{ minWidth: 500 }}
+        error={meta.error && meta.touched ? true : false}
+        helperText={meta.error && meta.touched && meta.error}
+      />
+    );
+  };
+
+  const renderThirdField = ({ input, meta, placeholder }) => {
+    return (
+      <TextField
+        {...input}
+        label={placeholder}
+        variant="standard"
+        style={{ minWidth: 500 }}
+        multiline
+        rows={4}
         error={meta.error && meta.touched ? true : false}
         helperText={meta.error && meta.touched && meta.error}
       />
@@ -59,7 +74,7 @@ const WordForm = ({ onSubmit, onCancel, initialValues }) => {
               <div style={{ marginTop: 10 }}>
                 <Field
                   name="thirdColumnWord"
-                  component={renderField}
+                  component={renderThirdField}
                   placeholder="Card Extra Word"
                   validate={composeValidators(required)}
                 />
