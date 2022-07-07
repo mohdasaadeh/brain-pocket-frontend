@@ -10,6 +10,7 @@ import ShowList from "./lists/ShowList";
 import CreateList from "./lists/CreateList";
 import EditList from "./lists/EditList";
 import DeleteList from "./lists/DeleteList";
+import CreateWord from "./words/CreateWord";
 import NotFound from "./NotFound";
 
 const App = () => {
@@ -25,6 +26,10 @@ const App = () => {
           <Route path="/lists/:id" element={<ShowList />} />
           <Route path="/lists/:id/edit" element={<EditList />} />
           <Route path="/lists/:id/delete" element={<DeleteList />} />
+          <Route
+            path="/lists/:listRelationId/original_words/new"
+            element={<CreateWord />}
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Box>

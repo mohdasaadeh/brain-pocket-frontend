@@ -19,7 +19,6 @@ import Tooltip from "@mui/material/Tooltip";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -200,10 +199,15 @@ const EnhancedTableToolbar = props => {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
+        <Tooltip title="Add New Word">
+          <Link
+            to={`/lists/${list._id}/original_words/new`}
+            style={{ textDecoration: "none" }}
+          >
+            <Button variant="contained" style={{ width: "175px" }}>
+              Add New Word
+            </Button>
+          </Link>
         </Tooltip>
       )}
     </Toolbar>
