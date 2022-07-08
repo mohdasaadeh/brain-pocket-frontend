@@ -4,8 +4,10 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
+  FETCH_ORIGINAL_WORD,
   FETCH_ORIGINAL_WORDS,
   CREATE_ORIGINAL_WORD,
+  EDIT_ORIGINAL_WORD,
   DELETE_ORIGINAL_WORDS,
   DELETE_ORIGINAL_WORD
 } from "../actions/types";
@@ -17,6 +19,19 @@ export const useWord = () => {
   const safeDispatch = useSafeDispatch(dispatch);
 
   const navigate = useNavigate();
+
+  const fetchOriginalWord = useErrorHandler(
+    useCallback(
+      async (listRelationId, id) => {
+        const { data } = await axios.get(
+          `/api/lists/${listRelationId}/original_words/${id}`
+        );
+
+        safeDispatch({ type: FETCH_ORIGINAL_WORD, payload: data });
+      },
+      [safeDispatch]
+    )
+  );
 
   const fetchOriginalWords = useErrorHandler(
     useCallback(
@@ -45,6 +60,22 @@ export const useWord = () => {
     )
   );
 
+  const editOriginalWord = useErrorHandler(
+    useCallback(
+      async (formValues, listRelationId, id) => {
+        const { data } = await axios.put(
+          `/api/lists/${listRelationId}/original_words/${id}/edit`,
+          formValues
+        );
+
+        safeDispatch({ type: EDIT_ORIGINAL_WORD, payload: data });
+
+        navigate(`/lists/${listRelationId}`);
+      },
+      [safeDispatch, navigate]
+    )
+  );
+
   const deleteOriginalWords = useErrorHandler(
     useCallback(() => {
       dispatch({ type: DELETE_ORIGINAL_WORDS });
@@ -66,8 +97,10 @@ export const useWord = () => {
   );
 
   return {
+    fetchOriginalWord,
     fetchOriginalWords,
     createOriginalWord,
+    editOriginalWord,
     deleteOriginalWords,
     deleteOriginalWord
   };

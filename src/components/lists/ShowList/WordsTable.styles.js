@@ -367,7 +367,12 @@ export default function EnhancedTable({ list, originalWords }) {
                       </TableCell>
                       <TableCell align="left">{row.thirdColumnTitle}</TableCell>
                       <TableCell align="left">
-                        <Button variant="contained">Edit</Button>
+                        <Link
+                          to={`/lists/${list._id}/original_words/${row.name}/edit`}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <Button variant="contained">Edit</Button>
+                        </Link>
                       </TableCell>
                     </TableRow>
                   );
